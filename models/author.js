@@ -30,16 +30,24 @@ AuthorSchema.virtual('url').get(function () {
   return `/catalog/author/${this._id}`;
 });
 
-AuthorSchema.virtual('birth_date').get(function () {
-  return this.date_of_birth
+function getLifeSpan() {
+  let birth = this.date_of_birth
     ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
     : '';
-});
+  let death = this.date_of_birth
+    ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
+    : '';
+  return `${birth} - ${death}`;
+}
 
-AuthorSchema.virtual('death_date').get(function () {
-  return this.date_of_birth
+AuthorSchema.virtual('lifespan').get(function () {
+  let birth = this.date_of_birth
     ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
     : '';
+  let death = this.date_of_birth
+    ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
+    : '';
+  return `${birth} - ${death}`;
 });
 
 // Export model
